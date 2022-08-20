@@ -1,0 +1,6 @@
+joi
+cors
+@types/cors
+@types/express
+@types/node
+@types/sequelize
