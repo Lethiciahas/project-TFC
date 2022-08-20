@@ -1,17 +1,17 @@
-import { Model, INTEGER , STRING } from 'sequelize';
+import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
 class Users extends Model {
-   public id!: number;
-   public username!: string;
-   public role!: string;
-   public email!: string;
-   public password!: string;
+  public id!: number;
+  public username!: string;
+  public role!: string;
+  public email!: string;
+  public password!: string;
 }
 
 Users.init({
-  id:{
+  id: {
     type: INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -31,7 +31,7 @@ Users.init({
   password: {
     type: STRING,
     allowNull: false,
-  }
+  },
 }, {
   // ... Outras configs
   underscored: true,
@@ -41,7 +41,7 @@ Users.init({
 });
 
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
