@@ -28,7 +28,7 @@ class App {
     this.app.use(accessControl);
     this.app.use('/login', loginRouter);
     // this.app.use('/login/validate', loginRouter);
-    this.app.use('/teams', teamRouter);
+    this.app.use(teamRouter);
     this.app.use(errorMiddleware);
   }
 
