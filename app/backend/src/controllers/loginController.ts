@@ -17,4 +17,14 @@ export default class LoginController {
     const auth = await this.service.login(email, password);
     res.status(200).json({ auth });
   };
+
+/*  public loginValidate = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(400).json({ message: 'Unauthorization' });
+    }
+    const auth = await this.service.loginValidate(authorization);
+    res.status(200).json({ auth });
+  }; */
 }

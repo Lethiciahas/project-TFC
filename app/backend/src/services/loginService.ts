@@ -18,7 +18,18 @@ export default class LoginService {
       error.name = 'Unauthorized';
       throw error;
     }
-    const auth = JwtService.createToken({ email, password });
+    const auth = JwtService.createToken(email, password);
     return auth;
   };
+
+  /* public loginValidate = async(authorization: string) => {
+     const email = JwtService.validateToken(authorization);
+     const data = await Users.findOne({ where: { email } });
+    if(!data) {
+      const error = new Error('Unauthorized');
+      error.name = 'Unauthorized';
+      throw error;
+    }
+    return data.role;
+  } */
 }
