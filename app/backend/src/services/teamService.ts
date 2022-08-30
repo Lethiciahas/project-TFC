@@ -7,7 +7,7 @@ export default class TeamService {
   };
 
   public findById = async (id: number) => {
-    const getId = await Teams.findOne({ where:{ id } });
+    const getId = await Teams.findOne({ where: { id } });
     return getId;
-  }
+  };
 }
