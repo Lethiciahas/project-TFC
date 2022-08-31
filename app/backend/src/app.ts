@@ -4,6 +4,7 @@ import errorMiddleware from './middleware/errors';
 import loginRouter from './routers/login.router';
 import teamRouter from './routers/teams.router';
 import matchesRouter from './routers/matches.router';
+import validateToken from './middleware/validateToken';
 
 class App {
   public app: express.Express;
@@ -27,7 +28,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.use(loginRouter);
+    this.app.use(loginRouter, validateToken);
     this.app.use(teamRouter);
     this.app.use(matchesRouter);
     this.app.use(errorMiddleware);

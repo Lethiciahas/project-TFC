@@ -1,6 +1,12 @@
+import * as dotenv from 'dotenv';
 import * as bcryptjs from 'bcryptjs';
+import { ILogin } from '../interfaces/IUsers';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import Users from '../database/models/UsersModels';
-import JwtService from './jwtService';
+
+dotenv.config();
+
+const secret = process.env.JWT_SECRET as string;
 
 export default class LoginService {
   public login = async (email: string, password: string) => {
@@ -18,18 +24,17 @@ export default class LoginService {
       error.name = 'Unauthorized';
       throw error;
     }
-    const auth = JwtService.createToken(email, password);
-    return auth;
+    const token = sign({ email, password }, secret);
+    return token
   };
 
-  /* public loginValidate = async(authorization: string) => {
-     const email = JwtService.validateToken(authorization);
-     const data = await Users.findOne({ where: { email } });
-    if(!data) {
-      const error = new Error('Unauthorized');
-      error.name = 'Unauthorized';
-      throw error;
-    }
-    return data.role;
-  } */
+  public loginValidate = async () => {
+       const data = await Users.findOne();
+      if (!data) {
+        const error = new Error('Not Found');
+        error.name = 'Unauthorized';
+        throw error;
+      }
+      return data.role
+  }
 }
