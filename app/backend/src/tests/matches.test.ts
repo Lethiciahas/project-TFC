@@ -7,21 +7,31 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
-import Users from '../database/models/UsersModels';
+import Matches from '../database/models/MatchesModel';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('login/validate', () => {
+describe('matches', () => {
     it('should return status 200', async () => {
-      sinon.stub(Users, "findAll").resolves([]);
+      sinon.stub(Matches, "findAll").resolves([]);
 
       const response = await chai.request(app)
-      .get('/login/validate')
+      .get('/matches')
       
       expect(response.status).to.equal(200);
 
       sinon.restore();
   });
+
+    it('should return matches', async () => {
+    sinon.stub(Matches, "findAll").resolves([]);
+    
+    const response = await chai.request(app)
+    .get('/matches')
+    
+    expect(response.body).to.be.deep.equal([]);
+});
+
 });
