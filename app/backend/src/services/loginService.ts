@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
-import * as bcryptjs from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import Users from '../database/models/UsersModels';
+import { ILogin } from '../interfaces/IUsers';
 
 dotenv.config();
 
@@ -13,23 +14,20 @@ const jwtConfig = {
 } as jwt.SignOptions
 
 export default class LoginService {
-  public login = async (email: string, password: string) => {
-    const data = await Users.findOne({ where: { email } });
-
-    if (!data) {
+  public login = async ({email, password }: ILogin) => {
+    if (!email || !password) {
+      const error = new Error('All fields must be filled');
+      error.name = 'BadRequest';
+      throw error;
+    }
+    const user = await Users.findOne();
+    if (!user || !bcrypt.compareSync(password, user.password)) {
       const error = new Error('Incorrect email or password');
       error.name = 'Unauthorized';
       throw error;
     }
-    const bcrypt = bcryptjs.compare(password, data.password);
-
-    if (!bcrypt) {
-      const error = new Error('Incorrect email or password');
-      error.name = 'Unauthorized';
-      throw error;
-    }
-    const token = jwt.sign({ email, password }, secret, jwtConfig);
-    return token
+    const token = jwt.sign({ email }, secret, jwtConfig);
+    return token;
   };
 
   public loginValidate = async () => {

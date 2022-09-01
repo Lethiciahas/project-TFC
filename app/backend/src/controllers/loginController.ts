@@ -10,12 +10,7 @@ export default class LoginController {
   }
 
   public login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: 'All fields must be filled' });
-    }
-    const auth = await this.service.login(email, password);
+    const auth = await this.service.login(req.body);
     res.status(200).json({ auth });
   };
 
