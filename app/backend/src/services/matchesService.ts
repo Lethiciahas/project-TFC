@@ -18,4 +18,19 @@ export default class MatchesService {
     ] });
     return matchesList;
   };
+
+ /*  public create = async (
+    homeTeam: number,
+    awayTeam: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) => {
+    const addMatches = await Matches.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals});
+    return addMatches;
+  
+  } */
+  public update = async (id: string) => {
+    const upProgress = await Matches.update({ inProgress: false }, { where: {id } });
+    return upProgress;
+  }
 }

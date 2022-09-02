@@ -12,4 +12,16 @@ export default class MatchesController {
     const matches = await this.service.list();
     res.status(200).json(matches);
   };
+
+/* 
+   public create = async (req: Request, res: Response) => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals} = req.body
+    const matches = await this.service.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals});
+    res.status(201).json(matches);
+  }; */
+
+  public update = async (req: Request, res: Response) => {
+    await this.service.update(req.params.id);
+    res.status(200).json({message: "Finished"});
+  };
 }
