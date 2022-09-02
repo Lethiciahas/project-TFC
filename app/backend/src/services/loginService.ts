@@ -9,7 +9,7 @@ dotenv.config();
 const secret = process.env.JWT_SECRET as string;
 
 export default class LoginService {
-  public login = async ({email, password }: Users) => {
+  public login = async ({email, password }: ILogin) => {
     if (!email || !password) {
       const error = new Error('All fields must be filled');
       error.name = 'BadRequest';
