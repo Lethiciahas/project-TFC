@@ -18,6 +18,7 @@ export default class MatchesController {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals} = req.body;
 
     const matches = await this.service.matchesInProgress( homeTeam, awayTeam, homeTeamGoals, awayTeamGoals);
+
     res.status(201).json(matches);
   };
 
