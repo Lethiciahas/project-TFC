@@ -19,18 +19,17 @@ export default class MatchesService {
     return matchesList;
   };
 
- /*  public create = async (
+  public matchesInProgress = async (
     homeTeam: number,
     awayTeam: number,
     homeTeamGoals: number,
     awayTeamGoals: number,
   ) => {
-    const addMatches = await Matches.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals});
+    const addMatches = await Matches.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: true});
+  
     return addMatches;
   
-  } */
-  public update = async (id: string) => {
-    const upProgress = await Matches.update({ inProgress: false }, { where: {id } });
-    return upProgress;
   }
+
+ 
 }
