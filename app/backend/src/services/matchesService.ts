@@ -31,5 +31,10 @@ export default class MatchesService {
   
   }
 
- 
+  public matchesFinish = async(id: number) => {
+    const matchFinish = await Matches.update({ inProgress: false}, { where: {id}});
+
+    return matchFinish;
+  }
+  
 }
