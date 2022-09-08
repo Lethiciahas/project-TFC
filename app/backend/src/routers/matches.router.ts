@@ -12,5 +12,6 @@ router.post('/matches', validateToken, (res, req) => matchesController.matchesIn
 
 router.patch('/matches/:id/finish', (res, req) => matchesController.matchesFinish (res, req));
 
+router.patch('/matches/:id', validateToken, (res, req) => matchesController.updateMatches (res, req))
 
 export default router;

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import Teams from '../database/models/TeamsModels';
 import Matches from '../database/models/MatchesModel';
+import IMatches from '../interfaces/IMatches';
 
 export default class MatchesService {
   public list = async () => {
@@ -54,4 +55,16 @@ export default class MatchesService {
     return matchFinish;
   }
   
+  public updateMatches = async(id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,) => {
+    const getId = await Matches.findOne({ where: {id}});
+      if (!getId) {
+        const error = new Error('NotFound')
+        error.name = 'NotFoundError'
+        throw error;
+      }
+    await Matches.update({
+      homeTeamGoals, awayTeamGoals }, { where: {id} });
+  }
 }
