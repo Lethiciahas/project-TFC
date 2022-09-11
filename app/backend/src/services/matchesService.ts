@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import Teams from '../database/models/TeamsModels';
 import Matches from '../database/models/MatchesModel';
-import IMatches from '../interfaces/IMatches';
+
 
 export default class MatchesService {
   public list = async () => {
