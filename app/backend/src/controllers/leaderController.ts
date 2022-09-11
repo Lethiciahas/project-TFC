@@ -12,4 +12,9 @@ export default class LeaderController {
     const data = await this.service.leaderTeamsHome();
     res.status(200).json(data);
   }
+
+  public leaderTeamsAway = async (req: Request, res: Response) => {
+    const data = await this.service.leaderTeamsAway();
+    res.status(200).json(data);
+  }
 };

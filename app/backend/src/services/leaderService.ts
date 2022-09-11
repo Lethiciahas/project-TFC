@@ -1,6 +1,6 @@
 import Teams from '../database/models/TeamsModels';
 import Matches from '../database/models/MatchesModel';
-import { calculateHome } from '../Utils';
+import { calculateHome , calculateAway } from '../Utils';
 
 export default class LeaderService {
   public leaderTeamsHome = async () => {
@@ -22,4 +22,25 @@ export default class LeaderService {
     const results = calculateHome(teams, matchesList);
     return results;
   };
+
+  public leaderTeamsAway = async () => {
+    const matchesList = await Matches.findAll({ include: [
+      {
+        model: Teams,
+        as: 'teamHome',
+        attributes: ['teamName'],
+      },
+      {
+        model: Teams,
+        as: 'teamAway',
+        attributes: ['teamName'],
+      },
+    ],
+    where: { inProgress: 0 } }) as any;
+
+    const teams = await Teams.findAll();
+    const results = calculateAway(teams, matchesList);
+    return results;
+  };
+  
 }

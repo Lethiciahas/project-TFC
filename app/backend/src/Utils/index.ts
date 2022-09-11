@@ -50,3 +50,42 @@ export const calculateHome = (teams:ITeam[], matchesList:IMatches[]) => {
   }
   return sortLeaderboard(results);
 };
+
+export const calculateAway = (teams:ITeam[], matchesList:IMatches[]) => {
+  const results: IResult[] = [];
+  for (let i = 0; i < teams.length; i++) {
+    const obj = {
+      name: '',
+      totalPoints: 0,
+      totalGames: 0,
+      totalVictories: 0,
+      totalDraws: 0,
+      totalLosses: 0,
+      goalsFavor: 0,
+      goalsOwn: 0,
+      goalsBalance: 0,
+      efficiency: 0,
+    } as IResult;
+    obj.name = teams[i].teamName;
+    for (let j = 0; j < matchesList.length; j++) {
+      if (matchesList[j].teamAway.teamName === teams[i].teamName) {
+        obj.goalsFavor += matchesList[j].awayTeamGoals;
+        obj.goalsOwn += matchesList[j].homeTeamGoals;
+        obj.totalGames += 1;
+        if (matchesList[j].awayTeamGoals > matchesList[j].homeTeamGoals) {
+          obj.totalPoints += 3;
+          obj.totalVictories += 1;
+        } else if (matchesList[j].awayTeamGoals < matchesList[j].homeTeamGoals) {
+          obj.totalLosses += 1;
+        } else {
+          obj.totalPoints += 1;
+          obj.totalDraws += 1;
+        }
+      }
+    }
+    obj.efficiency = Number(((obj.totalPoints / (obj.totalGames * 3)) * 100).toFixed(2));
+    obj.goalsBalance = obj.goalsFavor - obj.goalsOwn;
+    results.push(obj);
+  }
+  return sortLeaderboard(results);
+};
