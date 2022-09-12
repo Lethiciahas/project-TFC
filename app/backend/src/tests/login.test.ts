@@ -13,15 +13,29 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+
 describe('login/validate', () => {
     it('should return status 200', async () => {
       sinon.stub(Users, "findAll").resolves([]);
 
       const response = await chai.request(app)
-      .get('/login/validate')
-      
+      .get('/login/validate')      
       expect(response.status).to.equal(200);
 
       sinon.restore();
   });
+
+});
+describe('login/', () => {
+  it('login sucessfull', async () => {
+    sinon.stub(Users, "findOne").resolves();
+
+    const response = await chai.request(app)
+    .post('/login')
+    
+    expect(response.status).to.equal(200);
+
+    sinon.restore();
+});
+
 });

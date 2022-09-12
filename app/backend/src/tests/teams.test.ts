@@ -25,11 +25,11 @@ describe('teams', () => {
       sinon.restore();
   });
 
-    it('should return teams', async () => {
-    sinon.stub(Teams, "findAll").resolves([]);
+    it('should return teams/:id', async () => {
+    sinon.stub(Teams, "findOne").resolves();
     
     const response = await chai.request(app)
-    .get('/teams')
+    .get('/teams/:id')
     
     expect(response.body).to.be.deep.equal([]);
 });
