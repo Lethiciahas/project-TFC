@@ -15,7 +15,7 @@ const { expect } = chai;
 
 
 describe('login/validate', () => {
-    it('should return status 200', async () => {
+  it('should return status 200', async () => {
       sinon.stub(Users, "findAll").resolves([]);
 
       const response = await chai.request(app)
@@ -24,16 +24,17 @@ describe('login/validate', () => {
 
       sinon.restore();
   });
-
 });
+
+
 describe('login/', () => {
   it('login sucessfull', async () => {
-    sinon.stub(Users, "findOne").resolves();
+    sinon.stub(Users, "findAll").resolves([]);
 
     const response = await chai.request(app)
     .post('/login')
     
-    expect(response.status).to.equal(200);
+    expect(response.status).to.equal(401);
 
     sinon.restore();
 });

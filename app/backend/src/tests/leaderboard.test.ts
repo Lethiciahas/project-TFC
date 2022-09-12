@@ -49,3 +49,13 @@ describe('leaderboard/away', () => {
    expect(response.body).to.deep.equal([mockTeam]);
 });
 });
+
+
+describe('leaderboard/away', () => {
+  it('should return leaderboard', async () => { 
+   const response = await chai.request(app)
+   .get('/leaderboard/away')
+   
+   expect(response.status).to.equal(200);
+});
+});
